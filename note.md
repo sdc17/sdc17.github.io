@@ -1,25 +1,23 @@
 # A Note for Medical Image Segmentation
 
-### An Overview
+### Overview
 
-##### Time Span
+#### Span
 
-from 2015 U-Net to 2020
+`2015`~`2020` &`83` papers
 
-83 papers with available codes
+#### Subfields
 
-##### Subfields
-
-* Lesion(病灶) Segmentation
+* Lesion Segmentation
 * Brain Segmentation
 * 3D Medical Image Segmentation
-* Retinal Vessel(视网膜血管) Segmentation
+* Retinal Vessel Segmentation
 * Cell Segmentation
-* Lung Nodule(肺结节) Segmentation
+* Lung Nodule Segmentation
 * Electron Microscopy Image Segmentation
 * ...
 
-##### Trunk
+#### Trunk
 
 Mainly a series of **U-Net derived models**
 
@@ -29,23 +27,23 @@ Mainly a series of **U-Net derived models**
 * Data preprocess or postprocess
 * ...
 
-#####  from other image segmentation task
+####  Differences From Natural Image Segmentation
 
 * demands higher accuracy
-  * Segmenting lesions(病灶) or abnormalities in medical images demands a higher level
+  * Segmenting lesions or abnormalities in medical images demands a higher level
     of accuracy than what is desired in natural images.
 
 * imperfect dataset, expensive to acquire
-  * **scarce**(稀缺) annotations. limited annotated data is available for training
+  * **scarce** annotations. limited annotated data is available for training
   * **weak** annotations.  noisy annotations, or image-level annotations
 
-##### Solutions
+#### Solutions
 
 * Road 1, create new models with higher accuracy and robustness, mainly derived from U-Net.
 
 * Road 2, tackle imperfect dataset
 
-![image-20200422164627618](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422164627618.png)
+![image-20200422164627618](media/image-20200422164627618.png)
 
 * Scarce annotations
 
@@ -82,26 +80,27 @@ Mainly a series of **U-Net derived models**
     * typically use **noise-resilient(耐噪音) loss functions** to learn from noisy annotations
 
 
-##### Abbreviation
+#### Abbreviation
 
-| Abbreviation | Full Name                  | Chinese    |
-| ------------ | -------------------------- | ---------- |
-| MRI          | Magnetic Resonance Imaging | 磁共振成像 |
-| CRF          | Conditional Random Field   | 条件随机场 |
-| ROI          | Region of interest         |            |
+| Abbreviation | Full Name                  |
+| ------------ | -------------------------- |
+| MRI          | Magnetic Resonance Imaging |
+| CRF          | Conditional Random Field   |
+| ROI          | Region of interest         |
 
-##### Evaluation Metric
+#### Evaluation Metric
 
 * IoU/mIoU
 
-  <img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422180550894.png" alt="image-20200422180550894" style="zoom:50%;" />
-  $$
+  <img src="media/image-20200422180550894.png" alt="image-20200422180550894" style="zoom:50%;" />
+  
+$$
   IoU = \frac{TP}{TP+FP+FN}
-  $$
+$$
 
 * Dice(F1)
 
-  <img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422180751883.png" alt="image-20200422180751883" style="zoom:50%;" />
+  <img src="media/image-20200422180751883.png" alt="image-20200422180751883" style="zoom:50%;" />
 
 $$
 Dice = \frac{2\times TP}{(TP+FP)+(TP+FN)}
@@ -119,9 +118,9 @@ $$
 
   As a measure of shape similarity, Hausdorff distance can make a good supplement for Dice
 
-  ![image-20200422202721575](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422202721575.png)
+  ![image-20200422202721575](media/image-20200422202721575.png)
 
-<img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422202757873.png" alt="image-20200422202757873" style="zoom: 67%;" />
+<img src="media/image-20200422202757873.png" alt="image-20200422202757873" style="zoom: 67%;" />
 
 ##### Datasets
 
@@ -168,7 +167,7 @@ $$
 >
 > Pytorch implementation available
 
-![image-20200422174229489](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422174229489.png)
+![image-20200422174229489](media/image-20200422174229489.png)
 
 ##### 2016
 
@@ -197,7 +196,7 @@ $$
 
 **Architecture**
 
-![image-20200422190758692](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422190758692.png)
+![image-20200422190758692](media/image-20200422190758692.png)
 
 * each stage learns a **residual function**
 
@@ -205,7 +204,7 @@ $$
 
 * convolutions **between** each stage use```2*2*2``` voxels, **replace pooling**
 
-  ![image-20200422192708197](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422192708197.png)
+  ![image-20200422192708197](media/image-20200422192708197.png)
 
 * Replacing pooling operations with convolutional ones
 
@@ -220,7 +219,7 @@ $$
   * gather fine grained details
   * improve the convergence time
 
-  ![image-20200422194000742](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422194000742.png)
+  ![image-20200422194000742](media/image-20200422194000742.png)
 
 * Dice loss layer
 
@@ -232,13 +231,13 @@ $$
   Propose a novel **objective function** based on **dice** coefficient between two binary
   volumes, ranging between **0 and 1** which we aim to **maximise**
 
-  ![image-20200422194934300](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422194934300.png)
+  ![image-20200422194934300](media/image-20200422194934300.png)
 
   predicted binary segmentation volume $p_i \in P$ and the ground truth binary volume $g_i \in G$.
 
   differentiated yielding the gradient
 
-  ![image-20200422195654208](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422195654208.png)
+  ![image-20200422195654208](media/image-20200422195654208.png)
 
   Using this formulation we do **NOT** need to **assign weights** to samples of different classes to establish the right balance between foreground and background voxels.
 
@@ -252,19 +251,19 @@ $$
 
     * **histogram matching**
 
-      <img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422200929088.png" alt="image-20200422200929088" style="zoom:50%;" />
+      <img src="media/image-20200422200929088.png" alt="image-20200422200929088" style="zoom:50%;" />
 
-      ![image-20200422200737620](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422200737620.png)
+      ![image-20200422200737620](media/image-20200422200737620.png)
 
 **Results**
 
-![image-20200422201257123](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422201257123.png)
+![image-20200422201257123](media/image-20200422201257123.png)
 
-![image-20200422201539256](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422201539256.png)
+![image-20200422201539256](media/image-20200422201539256.png)
 
-![image-20200422201617033](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422201617033.png)
+![image-20200422201617033](media/image-20200422201617033.png)
 
-![image-20200422201733018](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422201733018.png)
+![image-20200422201733018](media/image-20200422201733018.png)
 
 **Conclusion**
 
@@ -309,7 +308,7 @@ similar**.
 
 **Architecture**
 
-![image-20200422211357431](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422211357431.png)
+![image-20200422211357431](media/image-20200422211357431.png)
 
 (a)**black** indicates the original **U-Net**, **green and blue** show **dense convolution blocks on the skip pathways**, and **red** indicates **deep supervision**. Red, green, and blue components distinguish UNet++ from U-Net.
 
@@ -319,7 +318,7 @@ similar**.
 
 * Re-designed skip pathways
 
-  ![image-20200422212805078](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422212805078.png)
+  ![image-20200422212805078](media/image-20200422212805078.png)
 
   * j = 0 receive only one input from the previous layer of the encoder
   * j = 1 receive two inputs, both from the encoder sub-network but at two consecutive levels
@@ -335,22 +334,22 @@ similar**.
 
 * Loss function, combination of binary cross-entropy and dice coefficient, used  to each of the above four semantic level
 
-  ![image-20200422213815877](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422213815877.png)
+  ![image-20200422213815877](media/image-20200422213815877.png)
 
 
 
 **Results**
 
-![image-20200422214000893](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422214000893.png)
+![image-20200422214000893](media/image-20200422214000893.png)
 
 * U-Net as baseline
 * A wide U-Net with similar number of parameters as U-Net++ to ensure that
   the performance gain yielded by our architecture is not simply due to increased
   number of parameters.
 
-![image-20200422214534476](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422214534476.png)
+![image-20200422214534476](media/image-20200422214534476.png)
 
-![image-20200422220651009](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422220651009.png)
+![image-20200422220651009](media/image-20200422220651009.png)
 
 * Model pruning. UNet++ L3 achieves on average 32.2% reduction in inference time while degrading IoU by only 0.6 points.
   More aggressive pruning further reduces the inference time but at the cost of significant accuracy degradation.
@@ -390,25 +389,25 @@ explore an alternate direction of recalibrating the feature maps adaptively, to 
 
 **Architecture**
 
-<img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422231750226.png" alt="image-20200422231750226" style="zoom:50%;" />
+<img src="media/image-20200422231750226.png" alt="image-20200422231750226" style="zoom:50%;" />
 
 * Spatial Squeeze and Channel Excitation Block (cSE)(Origin)
 
-  <img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422231819844.png" alt="image-20200422231819844" style="zoom: 67%;" />
+  <img src="media/image-20200422231819844.png" alt="image-20200422231819844" style="zoom: 67%;" />
 
-  ![image-20200422231538172](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422231538172.png)
+  ![image-20200422231538172](media/image-20200422231538172.png)
 
 * Channel Squeeze and Spatial Excitation Block (sSE)
 
-  <img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422231919332.png" alt="image-20200422231919332" style="zoom:67%;" />
+  <img src="media/image-20200422231919332.png" alt="image-20200422231919332" style="zoom:67%;" />
 
-  ![image-20200422232438000](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422232438000.png)
+  ![image-20200422232438000](media/image-20200422232438000.png)
 
 * Spatial and Channel Squeeze & Excitation Block (scSE)
 
-<img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422231952486.png" alt="image-20200422231952486" style="zoom:67%;" />
+<img src="media/image-20200422231952486.png" alt="image-20200422231952486" style="zoom:67%;" />
 
-​	![image-20200422232714484](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422232714484.png)
+​	![image-20200422232714484](media/image-20200422232714484.png)
 
 * Model Complexity
 
@@ -426,7 +425,7 @@ explore an alternate direction of recalibrating the feature maps adaptively, to 
 
 **Results**
 
-![image-20200422234235978](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422234235978.png)
+![image-20200422234235978](media/image-20200422234235978.png)
 
 * inclusion of **any SE block** consistently provides a statistically signicant **increase** in Dice score
 * the **spatia**l excitation yields a **higher** increase than the **channel-wise** excitation,
@@ -438,14 +437,14 @@ explore an alternate direction of recalibrating the feature maps adaptively, to 
     lenging** structures like 3rd/4th ventricles(心室), amygdala(杏仁核) and ventral(腹侧) DC where its performance degrades.
   * One possible explanation could be the **small size** of these structures, which might have got **overlooked** by only exciting the channels.
 
-![image-20200422234248213](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422234248213.png)
+![image-20200422234248213](media/image-20200422234248213.png)
 
 * whole body segmentation
   * a similar pattern
 
-![image-20200422234304269](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422234304269.png)
+![image-20200422234304269](media/image-20200422234304269.png)
 
-![image-20200422234845422](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200422234845422.png)
+![image-20200422234845422](media/image-20200422234845422.png)
 
 **Conclusion**
 
@@ -470,7 +469,7 @@ explore an alternate direction of recalibrating the feature maps adaptively, to 
 
 directly **fuses** the neighboring **different scale feature maps** from both **higher layers and lower layers** to strengthen feature propagation in current layer.
 
-![image-20200502111030463](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502111030463.png)
+![image-20200502111030463](media/image-20200502111030463.png)
 
 two categories of similar work
 
@@ -486,39 +485,39 @@ two categories of similar work
 
 * Dense Encoder and Decoder Block
 
-![image-20200502153659529](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153659529.png)
+![image-20200502153659529](media/image-20200502153659529.png)
 
 traditional:
 
-![image-20200502153720697](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153720697.png)
+![image-20200502153720697](media/image-20200502153720697.png)
 
 new:
 
-![image-20200502153736450](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153736450.png)
+![image-20200502153736450](media/image-20200502153736450.png)
 
-![image-20200502153829072](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153829072.png)
+![image-20200502153829072](media/image-20200502153829072.png)
 
 * Dense Cross connections Block
 
-  ![image-20200502153847652](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153847652.png)
+  ![image-20200502153847652](media/image-20200502153847652.png)
 
   traditional:
 
-  ![image-20200502153900772](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153900772.png)
+  ![image-20200502153900772](media/image-20200502153900772.png)
 
-  ![image-20200502153907294](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153907294.png)
+  ![image-20200502153907294](media/image-20200502153907294.png)
 
   new: 
 
-  ![image-20200502153916399](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153916399.png)
+  ![image-20200502153916399](media/image-20200502153916399.png)
 
-  ![image-20200502153927707](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502153927707.png)
+  ![image-20200502153927707](media/image-20200502153927707.png)
 
 * Fully Multiscale Dense connected Ushape architecture
 
-* ![image-20200502154004424](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502154004424.png)
+* ![image-20200502154004424](media/image-20200502154004424.png)
 
-  ![image-20200502154019807](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502154019807.png)
+  ![image-20200502154019807](media/image-20200502154019807.png)
 
 * Network Quantization(2017)
 
@@ -527,7 +526,7 @@ new:
 
   INQ quantizes the parameters to the **power of two or zero** which makes shift operation possible.
 
-  ![image-20200502154106848](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502154106848.png)
+  ![image-20200502154106848](media/image-20200502154106848.png)
 
 **Conclusion**
 
@@ -569,7 +568,7 @@ Similar attention mechanisms have been proposed for natural image classification
 
 **Architecture**
 
-![image-20200424171052553](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424171052553.png)
+![image-20200424171052553](media/image-20200424171052553.png)
 
 * New proposal
   * **grid-based gating** that allows attention coefficients to be more specific to local regions instead of **gating based on a global feature vector**.
@@ -581,13 +580,13 @@ Similar attention mechanisms have been proposed for natural image classification
 * In order to improve the accuracy, current segmentation frameworks rely on **additional preceding object localization models** to simplify the task into separate **localization and subsequent segmentation** steps. Here, we demonstrate that the same
   objective can be achieved by **integrating attention gates (AGs)** in a standard CNN model. This does **NOT** require the training of multiple models and a large number of extra model parameters.
 
-![image-20200424200555441](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424200555441.png)
+![image-20200424200555441](media/image-20200424200555441.png)
 
 a gating vector $g_i \in R^{F_g}$ is used for each pixel $i$ to determine focus regions.
 
-![image-20200424201435812](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424201435812.png)
+![image-20200424201435812](media/image-20200424201435812.png)
 
-![image-20200424201750356](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424201750356.png)
+![image-20200424201750356](media/image-20200424201750356.png)
 
 **Results**
 
@@ -596,11 +595,11 @@ dataset:
 * 150 abdominal(腹部的) 3D CT scans acquired from patients diagnosed with gastric(胃的) cancer (CT-150)
 * (CT-82) consists of 82 contrast enhanced 3D CT scans with pancreas(胰腺) manual annotations performed slice-by-slice.
 
-![image-20200424202940344](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424202940344.png)
+![image-20200424202940344](media/image-20200424202940344.png)
 
-![image-20200424202949298](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424202949298.png)
+![image-20200424202949298](media/image-20200424202949298.png)
 
-![image-20200424203001027](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200424203001027.png)
+![image-20200424203001027](media/image-20200424203001027.png)
 
 **Conclusion**
 
@@ -640,13 +639,13 @@ The proposed models utilize the power of U-Net, Residual Network, as well as RCN
 
 **Architecture**
 
-![image-20200425101829652](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200425101829652.png)
+![image-20200425101829652](media/image-20200425101829652.png)
 
 Recurrent Convolutional Layers (RCL) are performed with respect to the discrete time steps that are expressed according to the RCNN
 
-![image-20200501214630110](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501214630110.png)
+![image-20200501214630110](media/image-20200501214630110.png)
 
-![image-20200425103424319](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200425103424319.png)
+![image-20200425103424319](media/image-20200425103424319.png)
 
 ##### 2019
 
@@ -664,26 +663,26 @@ Recurrent Convolutional Layers (RCL) are performed with respect to the discrete 
 
 a hyper-dense architecture for multi-modal image segmentation that extends the concept of dense connectivity to the **multi-modal** setting: each imaging modality has a path, and dense connections occur not only between layers **within the same path**, but also **between layers across different paths**
 
-![image-20200504084900631](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504084900631.png)
+![image-20200504084900631](media/image-20200504084900631.png)
 
-![image-20200504085119661](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504085119661.png)
+![image-20200504085119661](media/image-20200504085119661.png)
 
 each stream performs a **different shuffling** of inputs, which can enhance robustness to the model and
 mitigate the risk of overfitting
 
-![image-20200504085722395](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504085722395.png)
+![image-20200504085722395](media/image-20200504085722395.png)
 
 Baseline
 
-![image-20200504090414301](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504090414301.png)
+![image-20200504090414301](media/image-20200504090414301.png)
 
 loss function
 
-![image-20200504090358923](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504090358923.png)
+![image-20200504090358923](media/image-20200504090358923.png)
 
 Comparison
 
-![image-20200504090858202](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504090858202.png)
+![image-20200504090858202](media/image-20200504090858202.png)
 
 
 
@@ -701,9 +700,9 @@ Instead of a simple concatenation, combining these two kinds of feature maps bet
 
 **Architecture**
 
-![image-20200506213326174](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506213326174.png)
+![image-20200506213326174](media/image-20200506213326174.png)
 
-![image-20200506222922555](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506222922555.png)
+![image-20200506222922555](media/image-20200506222922555.png)
 
 
 
@@ -741,47 +740,47 @@ the application of **stacked attention modules** remains unexplored in semantic 
 
 Overview
 
-![Spatial and Channel self-attention modules](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504205626018.png)
+![Spatial and Channel self-attention modules](media/image-20200504205626018.png)
 
 Spatial and Channel self-attention modules
 
 * Position attention module (PAM)
 
-  ![image-20200505225624427](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200505225624427.png)
+  ![image-20200505225624427](media/image-20200505225624427.png)
 
-  ![image-20200505225632028](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200505225632028.png)
+  ![image-20200505225632028](media/image-20200505225632028.png)
 
 * Channel attention module (CAM)
 
-  ![image-20200505225640313](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200505225640313.png)
+  ![image-20200505225640313](media/image-20200505225640313.png)
 
-  ![image-20200505225656627](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200505225656627.png)
+  ![image-20200505225656627](media/image-20200505225656627.png)
 
-![Guiding attention](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504213018970.png)
+![Guiding attention](media/image-20200504213018970.png)
 
 * Guiding attention
 
-  ![image-20200505225916939](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200505225916939.png)
+  ![image-20200505225916939](media/image-20200505225916939.png)
 
   The objective is that the class information can be embedded into the subsequent guided attention modules by forcing the latent representation of encoder-decoders to be close
 
-  ![image-20200506170717975](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506170717975.png)
+  ![image-20200506170717975](media/image-20200506170717975.png)
 
-  ![image-20200506170843081](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506170843081.png)
+  ![image-20200506170843081](media/image-20200506170843081.png)
 
   Totally
 
-  ![image-20200506170857925](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506170857925.png)
+  ![image-20200506170857925](media/image-20200506170857925.png)
 
-  ![image-20200506170907022](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506170907022.png)
+  ![image-20200506170907022](media/image-20200506170907022.png)
 
 * Deep supervision
 
-  ![image-20200506171127313](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506171127313.png)
+  ![image-20200506171127313](media/image-20200506171127313.png)
 
 * Objective function
 
-  ![image-20200506171133837](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506171133837.png)
+  ![image-20200506171133837](media/image-20200506171133837.png)
 
   
 
@@ -831,15 +830,15 @@ We address this limitation by **training a segmentation model on diverse realist
 
 In practice, collections of images are more readily available than segmentations. Rather than rely on segmentations, our method leverages a set of unlabeled images.
 
-![image-20200508082616326](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508082616326.png)
+![image-20200508082616326](media/image-20200508082616326.png)
 
 * Spatial and appearance transform models
 
-  ![image-20200508105723612](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508105723612.png)
+  ![image-20200508105723612](media/image-20200508105723612.png)
 
 * Learning
 
-  ![image-20200508112705693](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508112705693.png)
+  ![image-20200508112705693](media/image-20200508112705693.png)
 
   * Spatial transformation module loss:
 
@@ -847,21 +846,21 @@ In practice, collections of images are more readily available than segmentations
 
   * appearance transformation module loss:
 
-    ![image-20200508114724101](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508114724101.png)
+    ![image-20200508114724101](media/image-20200508114724101.png)
 
-    ![image-20200508115223235](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508115223235.png)
+    ![image-20200508115223235](media/image-20200508115223235.png)
 
-    ![image-20200508115104355](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508115104355.png)
+    ![image-20200508115104355](media/image-20200508115104355.png)
 
-    ![image-20200508114734764](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508114734764.png)
+    ![image-20200508114734764](media/image-20200508114734764.png)
 
 * Synthesizing new examples
 
-  ![image-20200508115859471](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508115859471.png)
+  ![image-20200508115859471](media/image-20200508115859471.png)
 
 * Variants
 
-  ![image-20200508120644150](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508120644150.png)
+  ![image-20200508120644150](media/image-20200508120644150.png)
 
 ##### Loss Function
 
@@ -885,11 +884,11 @@ a recurrent CNN (RCNN) for object recognition by incorporating recurrent connect
 
 **Architecture**
 
-<img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501211643136.png" alt="image-20200501211643136" style="zoom: 150%;" />
+<img src="media/image-20200501211643136.png" alt="image-20200501211643136" style="zoom: 150%;" />
 
-<img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501211712326.png" alt="image-20200501211712326" style="zoom:150%;" />
+<img src="media/image-20200501211712326.png" alt="image-20200501211712326" style="zoom:150%;" />
 
-![image-20200501211725662](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501211725662.png)
+![image-20200501211725662](media/image-20200501211725662.png)
 
 ***
 
@@ -907,31 +906,31 @@ formulate precipitation nowcasting as a spatiotemporal sequence forecasting prob
 
 **Architecture**
 
-![image-20200507120554528](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507120554528.png)
+![image-20200507120554528](media/image-20200507120554528.png)
 
-![image-20200507154524224](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507154524224.png)
+![image-20200507154524224](media/image-20200507154524224.png)
 
 The major drawback of FC-LSTM in handling spatiotemporal data is its usage of full connections in input-to-state and state-to-state transitions in which no spatial information is encoded.
 
-![image-20200507154533638](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507154533638.png)
+![image-20200507154533638](media/image-20200507154533638.png)
 
-![image-20200507182614645](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507182614645.png)
+![image-20200507182614645](media/image-20200507182614645.png)
 
 FC-LSTM
 
-![image-20200507185343382](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507185343382.png)
+![image-20200507185343382](media/image-20200507185343382.png)
 
 convLSTM
 
-![image-20200507182728301](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507182728301.png)
+![image-20200507182728301](media/image-20200507182728301.png)
 
 encoder-decoder
 
-![image-20200507175727390](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507175727390.png)
+![image-20200507175727390](media/image-20200507175727390.png)
 
 final prediction given by
 
-![image-20200507175749683](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507175749683.png)
+![image-20200507175749683](media/image-20200507175749683.png)
 
 ##### 2016
 
@@ -961,19 +960,19 @@ final prediction given by
 
 * Group-wise Quantization
 
-  ![image-20200502203020657](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502203020657.png)
+  ![image-20200502203020657](media/image-20200502203020657.png)
 
 * Re-training
 
-![image-20200502202000430](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502202000430.png)
+![image-20200502202000430](media/image-20200502202000430.png)
 
-![image-20200502202050989](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502202050989.png)
+![image-20200502202050989](media/image-20200502202050989.png)
 
 **Result**
 
-![image-20200502202430904](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502202430904.png)
+![image-20200502202430904](media/image-20200502202430904.png)
 
-![image-20200502202456964](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200502202456964.png)
+![image-20200502202456964](media/image-20200502202456964.png)
 
 ***
 
@@ -991,7 +990,7 @@ FCN : too much features maps produced in encoder are passed to decoder
 
 SegNet: use max pooling indices to upsample the feature maps, which needs less memory during training and delineate boundaries better
 
-![image-20200501204820485](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501204820485.png)
+![image-20200501204820485](media/image-20200501204820485.png)
 
 ***
 
@@ -1003,13 +1002,13 @@ SegNet: use max pooling indices to upsample the feature maps, which needs less m
 
 **Architecture**
 
-![image-20200504201754834](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504201754834.png)
+![image-20200504201754834](media/image-20200504201754834.png)
 
-![image-20200504201808969](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504201808969.png)
+![image-20200504201808969](media/image-20200504201808969.png)
 
-![image-20200504201824060](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504201824060.png)
+![image-20200504201824060](media/image-20200504201824060.png)
 
-![image-20200504201838298](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504201838298.png)
+![image-20200504201838298](media/image-20200504201838298.png)
 
 
 
@@ -1029,19 +1028,19 @@ address this class imbalance by reshaping the standard cross entropy loss such t
 
 **Architecture**
 
-![image-20200508123212035](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508123212035.png)
+![image-20200508123212035](media/image-20200508123212035.png)
 
-![image-20200508130331707](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508130331707.png)
+![image-20200508130331707](media/image-20200508130331707.png)
 
-![image-20200508130341963](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508130341963.png)
+![image-20200508130341963](media/image-20200508130341963.png)
 
 * Class Imbalance and Twostage Detectors
 
-![image-20200508130738301](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508130738301.png)
+![image-20200508130738301](media/image-20200508130738301.png)
 
 * RetinaNet
 
-  ![image-20200508130910840](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200508130910840.png)
+  ![image-20200508130910840](media/image-20200508130910840.png)
 
 
 
@@ -1059,29 +1058,29 @@ address this class imbalance by reshaping the standard cross entropy loss such t
 
 * overall
 
-![image-20200507195540205](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507195540205.png)
+![image-20200507195540205](media/image-20200507195540205.png)
 
 * Pyramid Dilated Convolution (PDC) module
 
-![image-20200507200142601](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507200142601.png)
+![image-20200507200142601](media/image-20200507200142601.png)
 
 * Bidirectional ConvLSTM (B-ConvLSTM)
 
-![image-20200507201817864](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507201817864.png)
+![image-20200507201817864](media/image-20200507201817864.png)
 
-![image-20200507202256022](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507202256022.png)
+![image-20200507202256022](media/image-20200507202256022.png)
 
 * Deeper Bidirectional ConvLSTM
 
-![image-20200507202307063](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507202307063.png)
+![image-20200507202307063](media/image-20200507202307063.png)
 
-![image-20200507202654111](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507202654111.png)
+![image-20200507202654111](media/image-20200507202654111.png)
 
-![image-20200507201817864](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507201817864.png)
+![image-20200507201817864](media/image-20200507201817864-1589117532671.png)
 
 ​	compared with Vanilla ConvLSTM
 
-![image-20200507202811084](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507202811084.png)
+![image-20200507202811084](media/image-20200507202811084.png)
 
 In this way, information are encouraged to flow between the forward and backward ConvLSTM units, and deeper spatiotemporal features can be extracted by the backward units.
 
@@ -1095,11 +1094,11 @@ In this way, information are encouraged to flow between the forward and backward
 
   Let $G \in \{0, 1\}^{473 \times 473}$ and $S \in \{0, 1\}^{473 \times 473}$
 
-![image-20200507205105795](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507205105795.png)
+![image-20200507205105795](media/image-20200507205105795.png)
 
-![image-20200507205121908](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507205121908.png)
+![image-20200507205121908](media/image-20200507205121908.png)
 
-![image-20200507205128464](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507205128464.png)
+![image-20200507205128464](media/image-20200507205128464.png)
 
 ##### 2019
 
@@ -1111,15 +1110,15 @@ In this way, information are encouraged to flow between the forward and backward
 
 **Architecture**
 
-![](D:\CV\Cut\record\week12\media\1-s2.0-S0045653518324639-gr2_lrg.jpg)
+![](media/1-s2.0-S0045653518324639-gr2_lrg.jpg)
 
 LSTM
 
-![image-20200507153318895](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507153318895.png)
+![image-20200507153318895](media/image-20200507153318895.png)
 
 NN
 
-![image-20200507153342749](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507153342749.png)
+![image-20200507153342749](media/image-20200507153342749.png)
 
 ##### 2020
 
@@ -1131,7 +1130,7 @@ NN
 
 * overall
 
-![image-20200506230927394](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506230927394.png)
+![image-20200506230927394](media/image-20200506230927394.png)
 
 * The problem
 
@@ -1139,27 +1138,27 @@ NN
 
   These gates in GRU and LSTM can learn which data in a sequence is important to keep or throw away. By doing that, it can pass relevant information down the long chain of sequences to make predictions. 
 
-  ![](D:\CV\Cut\record\week12\media\1_ygAgowqTZjR6ABzZHd8Bqg.gif)
+  ![](media/1_ygAgowqTZjR6ABzZHd8Bqg.gif)
 
 * RNN workflow
 
   First words get transformed into machine-readable vectors. Then the RNN processes the sequence of vectors one by one.
 
-  ![](D:\CV\Cut\record\week12\media\1_AQ52bwW55GsJt6HTxPDuMA.gif)
+  ![](media/1_AQ52bwW55GsJt6HTxPDuMA.gif)
 
   While processing, it passes the previous hidden state to the next step of the sequence. The hidden state acts as the neural networks memory. It holds information on previous data the network has seen before.
 
-  ![](D:\CV\Cut\record\week12\media\1_o-Cq5U8-tfa1_ve2Pf3nfg.gif)
+  ![](media/1_o-Cq5U8-tfa1_ve2Pf3nfg.gif)
 
   the input and previous hidden state are combined to form a vector. That vector now has information on the current input and previous inputs. The vector goes through the tanh activation, and the output is the new hidden state, or the memory of the network.
 
-  ![](D:\CV\Cut\record\week12\media\1_WMnFSJHzOloFlJHU6fVN-g.gif)
+  ![](media/1_WMnFSJHzOloFlJHU6fVN-g.gif)
 
 * LSTM
 
   LSTM cell
 
-  ![image-20200506232238752](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506232238752.png)
+  ![image-20200506232238752](media/image-20200506232238752.png)
 
   The cell state act as a transport highway that transfers relative information all the way down the sequence chain. 
 
@@ -1167,11 +1166,11 @@ NN
 
   conveyor belt
 
-  ![image-20200507092334661](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507092334661.png)
+  ![image-20200507092334661](media/image-20200507092334661.png)
 
   Gates are a way to optionally let information through. They are composed out of a sigmoid neural net layer and a pointwise multiplication operation.
 
-  ![image-20200507092403321](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507092403321.png)
+  ![image-20200507092403321](media/image-20200507092403321.png)
 
   The sigmoid layer outputs numbers between zero and one, describing how much of each component should be let through. A value of zero means “let nothing through,” while a value of one means “let everything through!”
 
@@ -1179,33 +1178,33 @@ NN
 
     This gate decides what information should be thrown away or kept
 
-    ![](D:\CV\Cut\record\week12\media\1_GjehOa513_BgpDDP6Vkw2Q.gif)
+    ![](media/1_GjehOa513_BgpDDP6Vkw2Q.gif)
 
-    ![image-20200507092647880](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507092647880.png)
+    ![image-20200507092647880](media/image-20200507092647880.png)
 
   * Input Gate
 
     The next step is to decide what new information we’re going to store in the cell state.
 
-    ![](D:\CV\Cut\record\week12\media\1_TTmYy7Sy8uUXxUXfzmoKbA.gif)
+    ![](media/1_TTmYy7Sy8uUXxUXfzmoKbA.gif)
 
-    ![image-20200507092848651](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507092848651.png)
+    ![image-20200507092848651](media/image-20200507092848651.png)
 
   * Cell State
 
     It’s now time to update the old cell state, $C_{t-1}$, into the new cell state $C_{t}$.
 
-    ![](D:\CV\Cut\record\week12\media\1_S0rXIeO_VoUVOyrYHckUWg.gif)
+    ![](media/1_S0rXIeO_VoUVOyrYHckUWg.gif)
 
-    ![image-20200507093201732](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507093201732.png)
+    ![image-20200507093201732](media/image-20200507093201732.png)
 
   * Output Gate
 
     The output gate decides what the next hidden state should be.
 
-    ![](D:\CV\Cut\record\week12\media\1_VOXRGhOShoWWks6ouoDN3Q.gif)
+    ![](media/1_VOXRGhOShoWWks6ouoDN3Q.gif)
 
-    ![image-20200507093500331](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507093500331.png)
+    ![image-20200507093500331](media/image-20200507093500331.png)
 
   To review, the Forget gate decides what is relevant to keep from prior steps. The input gate decides what information is relevant to add from the current step. The output gate determines what the next hidden state should be.
 
@@ -1213,17 +1212,17 @@ NN
 
     * adding “peephole connections.
 
-      ![image-20200507094914653](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507094914653.png)
+      ![image-20200507094914653](media/image-20200507094914653.png)
 
     * use coupled forget and input gates
 
-      ![image-20200507095130420](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507095130420.png)
+      ![image-20200507095130420](media/image-20200507095130420.png)
 
 * GRU(Gated Recurrent Unit)
 
-  ![image-20200506233403742](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200506233403742.png)
+  ![image-20200506233403742](media/image-20200506233403742.png)
 
-  ![image-20200507095304346](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200507095304346.png)
+  ![image-20200507095304346](media/image-20200507095304346.png)
 
   * Update Gate
 
@@ -1275,27 +1274,27 @@ NN
 
 Attention motivated by how we pay **visual attention** to **different regions** of an image or correlate words in one sentence
 
-![image-20200428101213984](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200428101213984.png)
+![image-20200428101213984](media/image-20200428101213984.png)
 
 Given a small patch of an image, pixels in the **rest provide clues** what should be displayed there. We expect to see a **pointy ear** in the **yellow box** because we have seen a **dog’s nose**, **another pointy** ear on the right, and Shiba’s **mystery eyes** (stuff in the red boxes). However, the **sweater and blanket** at the bottom would **NOT** be as helpful as those doggy features.
 
 Similarly for words in one sentence or close context
 
-![image-20200428142830292](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200428142830292.png)
+![image-20200428142830292](media/image-20200428142830292.png)
 
 in order to predict or infer one element, such as a pixel in an image or a word in a sentence, we estimate using the **attention vector how strongly it is correlated with** (or “*attends to*” as you may have read in many papers) **other elements** and take the sum of their values weighted by the attention vector as the approximation of the target.
 
 ##### Attention
 
-![image-20200501195734683](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501195734683.png)
+![image-20200501195734683](media/image-20200501195734683.png)
 
-![image-20200501195754203](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501195754203.png)
+![image-20200501195754203](media/image-20200501195754203.png)
 
-![image-20200501195806657](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501195806657.png)
+![image-20200501195806657](media/image-20200501195806657.png)
 
 ##### Soft vs Hard Attention
 
-![image-20200428170136977](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200428170136977.png)
+![image-20200428170136977](media/image-20200428170136977.png)
 
 whether the attention has access to the entire image or only a patch
 
@@ -1304,14 +1303,14 @@ whether the attention has access to the entire image or only a patch
   - *Pro*: the model is smooth and differentiable.
   - *Con*: expensive when the source input is large.
 
-  ![image-20200501195830945](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501195830945.png)
+  ![image-20200501195830945](media/image-20200501195830945.png)
 
 - Hard Attention: only selects one patch of the image to attend to at a time.
 
   - *Pro*: less calculation at the inference time.
   - *Con*: the model is non-differentiable and requires more complicated techniques such as variance reduction or reinforcement learning to train
 
-![image-20200501195850881](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200501195850881.png)
+![image-20200501195850881](media/image-20200501195850881.png)
 
 Here is also a [brief introduction](https://blog.csdn.net/songbinxu/article/details/80739447) of attention Mechanisms in Chinese.
 
@@ -1319,39 +1318,39 @@ Here is also a [brief introduction](https://blog.csdn.net/songbinxu/article/deta
 
 * overall
 
-![image-20200504190055203](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504190055203.png)
+![image-20200504190055203](media/image-20200504190055203.png)
 
-![image-20200504190143243](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504190143243.png)
+![image-20200504190143243](media/image-20200504190143243.png)
 
-![image-20200504190151940](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504190151940.png)
+![image-20200504190151940](media/image-20200504190151940.png)
 
-![image-20200504190214628](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504190214628.png)
+![image-20200504190214628](media/image-20200504190214628.png)
 
 * encoder
 
   * embedding
 
-    ![image-20200504192038077](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192038077.png)
+    ![image-20200504192038077](media/image-20200504192038077.png)
 
   * flows through each of the two layers of the encoder.
 
-    ![image-20200504192507500](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192507500.png)
+    ![image-20200504192507500](media/image-20200504192507500.png)
 
   * Self-Attention
 
     * Query/Key/Value
 
-    ![image-20200504192547394](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192547394.png)
+    ![image-20200504192547394](media/image-20200504192547394.png)
 
-    ![image-20200504200314496](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504200314496.png)
+    ![image-20200504200314496](media/image-20200504200314496.png)
 
     * Details
 
-    ![image-20200504192702468](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192702468.png)
+    ![image-20200504192702468](media/image-20200504192702468.png)
 
     * In matrix form
 
-    ![image-20200504192837058](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192837058.png)
+    ![image-20200504192837058](media/image-20200504192837058.png)
 
     * Multi-Head
 
@@ -1359,23 +1358,23 @@ Here is also a [brief introduction](https://blog.csdn.net/songbinxu/article/deta
 
       gives the attention layer multiple “representation subspaces”.
 
-    ![image-20200504192902550](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192902550.png)
+    ![image-20200504192902550](media/image-20200504192902550.png)
 
-    ![image-20200504192924233](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192924233.png)
+    ![image-20200504192924233](media/image-20200504192924233.png)
 
     condense these heads down into a single matrix
 
-    ![image-20200504192952472](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504192952472.png)
+    ![image-20200504192952472](media/image-20200504192952472.png)
 
-    * Overall![image-20200504193114974](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193114974.png)
+    * Overall![image-20200504193114974](media/image-20200504193114974.png)
 
     * different attention heads
 
-    ![image-20200504193210020](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193210020.png)
+    ![image-20200504193210020](media/image-20200504193210020.png)
 
     * add all the attention heads
 
-    ![image-20200504193322679](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193322679.png)
+    ![image-20200504193322679](media/image-20200504193322679.png)
 
   * Representing the order of the sequence using positional encoding
 
@@ -1383,24 +1382,24 @@ Here is also a [brief introduction](https://blog.csdn.net/songbinxu/article/deta
 
     To address this, the transformer adds a vector to each input embedding. These vectors **follow a specific pattern that the model learns**, which helps it **determine the position of each word**, or the **distance between different words** in the sequence.
 
-  ![image-20200504193428495](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193428495.png)
+  ![image-20200504193428495](media/image-20200504193428495.png)
 
-  ![image-20200504193440490](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193440490.png)
+  ![image-20200504193440490](media/image-20200504193440490.png)
 
   * Residuals
 
-  ![image-20200504193516682](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193516682.png)
+  ![image-20200504193516682](media/image-20200504193516682.png)
 
-  ​	![image-20200504193559901](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193559901.png)
+  ​	![image-20200504193559901](media/image-20200504193559901.png)
 
   * Transformer of 2 stacked encoders and decoders
 
-  ![image-20200504193644064](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504193644064.png)
+  ![image-20200504193644064](media/image-20200504193644064.png)
 
   * Decoder
 
-  ![](D:\CV\Cut\record\week12\media\transformer_decoding_2.gif)
+  ![](media/transformer_decoding_2.gif)
 
   * Transformer
 
-  ![image-20200504194324930](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20200504194324930.png)
+  ![image-20200504194324930](media/image-20200504194324930.png)
