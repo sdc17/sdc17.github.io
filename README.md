@@ -1,1 +1,1 @@
-# A Note For (Basically Medical) Medical Image Segmentation
+# A Note For (Basically Medical) Image Segmentation
