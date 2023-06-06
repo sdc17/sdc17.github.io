@@ -1,1 +1,1 @@
-Personal [homepage](https://www.dachuanshi.com) of Dachuan Shi.
+About [me](https://www.dachuanshi.com).
